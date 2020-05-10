@@ -13,8 +13,7 @@ public class LoginService {
 
     public LoginService(UserRepository repository) {
         this.repository = repository;
-        loggedUser = User.getEmptyUser();
-        loggedIn = false;
+        logOut();
     }
 
     public void logIn(User user) {
@@ -31,5 +30,10 @@ public class LoginService {
             return "Zalogowany jako: " + loggedUser.getMail();
         }
         return "Niezalogowany!";
+    }
+
+    public void logOut() {
+        loggedUser = User.getEmptyUser();
+        loggedIn = false;
     }
 }
