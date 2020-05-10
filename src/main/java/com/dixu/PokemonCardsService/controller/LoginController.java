@@ -6,10 +6,7 @@ import com.dixu.PokemonCardsService.service.LoginServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/login")
@@ -23,14 +20,15 @@ public class LoginController {
     }
 
     @GetMapping
-    String getLoginPage() {
+    String getLoginPage(Model model) {
+        model.addAttribute("user", new UserDTO());
         return "login-form";
     }
 
     @PostMapping
-    String logIn(@RequestParam String mail, @RequestParam String pass, Model model) {
+    String logIn(@ModelAttribute UserDTO user, Model model) {
         try {
-            loginService.logIn(new UserDTO(mail, pass));
+            loginService.logIn(user);
         } catch (LoginServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "login-failed";

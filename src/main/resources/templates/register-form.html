@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Register!</title>
 </head>
 <body>
 <h1>Zarejestruj się aby rozpocząć przygodę!</h1>
-<form method="post" action="/register">
-   <div><label>Mail: <input type="email" name="mail"></label></div>
-   <div><label>Password: <input type="password" name="pass"></label></div>
+<form method="post" th:object="${user}">
+   <div><label>Mail: <input type="email" name="mail" th:field="*{mail}"></label></div>
+   <div><label>Password: <input type="password" name="pass" th:field="*{password}"></label></div>
    <div> <input type="submit" value="Zarejestruj"></div>
 </form>
 <div><a href="/" >Powrót do strony głównej</a></div>

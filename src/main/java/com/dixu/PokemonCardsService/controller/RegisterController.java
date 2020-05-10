@@ -1,15 +1,13 @@
 package com.dixu.PokemonCardsService.controller;
 
+import com.dixu.PokemonCardsService.dto.TrainerDTO;
 import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.service.RegisterService;
 import com.dixu.PokemonCardsService.service.UserServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/register")
@@ -23,16 +21,16 @@ class RegisterController {
     }
 
     @GetMapping
-    String getRegisterPage(){
+    String getRegisterPage(Model model){
+        model.addAttribute("user", new UserDTO());
         return "register-form";
     }
 
-
-
     @PostMapping
-    String registerNewUser(@RequestParam String mail, @RequestParam String pass, Model model) {
+    String registerNewUser(@ModelAttribute UserDTO user, Model model) {
+        System.out.println(user);
         try {
-            registerService.register(new UserDTO(mail, pass));
+            registerService.register(user);
         } catch (UserServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "register-failed";
