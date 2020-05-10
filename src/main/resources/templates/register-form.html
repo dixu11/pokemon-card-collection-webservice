@@ -7,10 +7,23 @@
 <body>
 <h1>Zarejestruj się aby rozpocząć przygodę!</h1>
 <form method="post" th:object="${user}">
-   <div><label>Mail: <input type="email" name="mail" th:field="*{mail}"></label></div>
-   <div><label>Password: <input type="password" name="pass" th:field="*{password}"></label></div>
-   <div> <input type="submit" value="Zarejestruj"></div>
+    <div>
+        <label>Mail:
+        <input type="email" th:field="*{mail}">
+        <span  th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span></label>
+    </div>
+    <div>
+        <label>Password:
+        <input type="password" name="pass" th:field="*{password}">
+        <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></label>
+    </div>
+
+    <div>
+        <input type="submit" value="Zarejestruj">
+
+    </div>
 </form>
-<div><a href="/" >Powrót do strony głównej</a></div>
+<div><a href="/login">Zaloguj się</a></div>
+<div><a href="/">Powrót do strony głównej</a></div>
 </body>
 </html>

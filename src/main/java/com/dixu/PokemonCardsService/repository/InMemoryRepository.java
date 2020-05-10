@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class InMemoryRepository implements UserRepository {
@@ -23,5 +24,12 @@ public class InMemoryRepository implements UserRepository {
     @Override
     public boolean hasThisUser(User user) {
         return users.contains(user);
+    }
+
+    @Override
+    public Optional<User> findByMail(String mail) {
+        return users.stream()
+                .filter(user -> user.getMail().equals(mail))
+                .findAny();
     }
 }

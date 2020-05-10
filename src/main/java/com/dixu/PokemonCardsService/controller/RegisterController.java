@@ -1,13 +1,16 @@
 package com.dixu.PokemonCardsService.controller;
 
-import com.dixu.PokemonCardsService.dto.TrainerDTO;
 import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.service.RegisterService;
-import com.dixu.PokemonCardsService.service.UserServiceException;
+import com.dixu.PokemonCardsService.service.RegisterServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/register")
@@ -26,16 +29,21 @@ class RegisterController {
         return "register-form";
     }
 
+    //adnotacja dodaje otrzymanego usera od razu do modelu
     @PostMapping
-    String registerNewUser(@ModelAttribute UserDTO user, Model model) {
-        System.out.println(user);
+    String registerNewUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            return "register-form";
+        }
+
         try {
             registerService.register(user);
-        } catch (UserServiceException e) {
-            model.addAttribute("error", e.getMessage());
-            return "register-failed";
+        } catch (RegisterServiceException e) {
+          errors.addError(new FieldError("user","mail",e.getMessage()));
+            return "register-form";
         }
-        return "register-success";
+
+        return "redirect:login";
     }
 
 

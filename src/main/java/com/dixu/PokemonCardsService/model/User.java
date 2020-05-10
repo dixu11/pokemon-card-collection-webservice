@@ -35,4 +35,8 @@ public class User {
     public String getMail() {
         return mail;
     }
+
+    public boolean hasSamePassword(User loggingUser) {
+        return loggingUser.password.equals(password);
+    }
 }

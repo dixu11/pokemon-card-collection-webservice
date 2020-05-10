@@ -7,8 +7,14 @@
 <body>
 <h1>Zaloguj się i złap je wszystkie!</h1>
 <form method="post" th:object="${user}">
-    <div><label>Mail: <input type="email" name="mail" th:field="${user.mail}"></label></div>
-    <div><label>Password: <input type="password" name="pass" th:field="${user.password}"></label></div>
+    <div><label>
+        Mail: <input type="email" name="mail" th:field="${user.mail}">
+        <span  th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+    </label></div>
+    <div><label>
+        Password: <input type="password" name="pass" th:field="${user.password}">
+        <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    </label></div>
     <div> <input type="submit" value="Zaloguj"></div>
 </form>
 <div><a href="/login">Spróbuj ponownie</a></div>

@@ -6,7 +6,11 @@ import com.dixu.PokemonCardsService.service.LoginServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/login")
@@ -26,14 +30,17 @@ public class LoginController {
     }
 
     @PostMapping
-    String logIn(@ModelAttribute UserDTO user, Model model) {
+    String logIn(@Valid @ModelAttribute("user") UserDTO user, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return "login-form";
+        }
         try {
             loginService.logIn(user);
         } catch (LoginServiceException e) {
-            model.addAttribute("error", e.getMessage());
-            return "login-failed";
+            errors.addError(new FieldError("user", e.getField(), e.getMessage()));
+            return "login-form";
         }
-        return "login-success";
+        return "redirect:";
     }
 
 }

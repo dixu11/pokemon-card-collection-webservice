@@ -21,7 +21,6 @@ public class TrainerService {
 
     public void addTrainer(TrainerDTO trainerDTO) {
         validateAddingAtAll();
-        validateTrainerData(trainerDTO);
         Trainer trainer = createTrainer(trainerDTO);
         trainerRepository.addTrainerForUser(trainer, loginService.getLoggedUser() );
     }
@@ -36,16 +35,8 @@ public class TrainerService {
         }
     }
 
-    private void validateTrainerData(TrainerDTO trainerDTO) {
-        if (trainerDTO.getName().isBlank() || trainerDTO.getSex().isBlank() || trainerDTO.getType().isBlank()) {
-            throw new TrainerServiceException("Należy uzupełnić wszystkie informacje o trenerze!");
-        }
-        if (!trainerDTO.getSex().equals("female") && !trainerDTO.getSex().equals("male")) {
-            throw new TrainerServiceException("Należy poprawnie uzupełnić płeć!");
-        }
-    }
-
     private Trainer createTrainer(TrainerDTO trainerDTO) {
+        System.out.println(trainerDTO);
         return new Trainer(trainerDTO.getName(),
                 Trainer.Sex.valueOf(trainerDTO.getSex().toUpperCase()),
                 trainerDTO.getType());

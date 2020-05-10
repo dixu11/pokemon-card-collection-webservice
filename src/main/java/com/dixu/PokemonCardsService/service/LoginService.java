@@ -5,6 +5,8 @@ import com.dixu.PokemonCardsService.model.User;
 import com.dixu.PokemonCardsService.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LoginService {
 
@@ -17,13 +19,17 @@ public class LoginService {
         logOut();
     }
 
-    public void logIn(UserDTO userDTO) {
-        User user = new User(userDTO.getMail(), userDTO.getPassword());
-        if (!repository.hasThisUser(user)) {
-            throw new LoginServiceException("Nie odnaleziono użytkownika o takim mailu i haśle, spróbuj jeszcze raz");
+    public void logIn( UserDTO userDTO) {
+        User loggingUser = new User(userDTO.getMail(), userDTO.getPassword());
+        Optional<User> accountOptional = repository.findByMail(loggingUser.getMail());
+        if (accountOptional.isEmpty()) {
+            throw new LoginServiceException("Nie odnaleziono użytkownika o takim mailu","mail");
+        }
+        if (!accountOptional.get().hasSamePassword(loggingUser)) {
+            throw new LoginServiceException("Nieprawidłowe hasło","password");
         }
         loggedIn = true;
-        loggedUser = user;
+        loggedUser = loggingUser;
     }
 
 

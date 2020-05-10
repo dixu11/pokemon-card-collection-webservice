@@ -6,6 +6,8 @@ import com.dixu.PokemonCardsService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RegisterService {
 
@@ -17,22 +19,16 @@ public class RegisterService {
     }
 
     public void register(UserDTO userDTO) {
-        validateUser(userDTO);
+        User user = new User(userDTO.getMail(),userDTO.getPassword());
+        checkIfAlreadyRegistered(user);
         repository.saveUser(new User(userDTO.getMail(),userDTO.getPassword()));
     }
 
-
-    private void validateUser(UserDTO userDTO) {
-        if (userDTO.getMail().isBlank() || userDTO.getPassword().isBlank()) {
-            throw new UserServiceException("Wpisz mail oraz hasło!");
-        }
-        if (userDTO.getPassword().length() < 5) {
-            throw new UserServiceException("Hasło musi mieć minimum 5 znaków!");
-        }
-        if (!userDTO.getMail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new UserServiceException("Wpisz poprawny mail!");
+    private void checkIfAlreadyRegistered(User user) {
+        Optional<User> sameUser = repository.findByMail(user.getMail());
+        if (sameUser.isPresent()) {
+            throw new RegisterServiceException("Wybrałeś maila, którego mamy już w bazie! Spróbuj się zalogować.");
         }
     }
-
 
 }

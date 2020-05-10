@@ -6,7 +6,12 @@ import com.dixu.PokemonCardsService.service.TrainerService;
 import com.dixu.PokemonCardsService.service.TrainerServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import static com.dixu.PokemonCardsService.model.Trainer.Sex.MALE;
 
 @Controller
 @RequestMapping("/trainer")
@@ -26,12 +31,18 @@ public class TrainerController {
             model.addAttribute("error", e.getMessage());
             return "trainer-form-error";
         }
-        model.addAttribute("trainer", new TrainerDTO());
+        TrainerDTO trainer = new TrainerDTO();
+        String defaultValue = "male";
+        trainer.setSex(defaultValue);
+        model.addAttribute("trainer", trainer);
         return "trainer-form";
     }
 
     @PostMapping
-    String addNewTrainer(@ModelAttribute TrainerDTO trainer, Model model) {
+    String addNewTrainer(@Valid @ModelAttribute("trainer") TrainerDTO trainer, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            return "trainer-form";
+        }
         try {
             trainerService.addTrainer(trainer);
         } catch (TrainerServiceException e) {

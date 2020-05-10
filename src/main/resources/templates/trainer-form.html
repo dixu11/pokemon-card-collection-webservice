@@ -7,11 +7,15 @@
 <body>
 <h1>Powiedz nam jakim jesteś trenerem!</h1>
 <form method="post" th:object="${trainer}">
-    <div><label>Imie: <input type="text" name="name" th:field="*{name}"></label></div>
-    <div><label>Mężczyzna <input type="radio" value="male" name="sex" checked th:field="*{sex}"></label>
-        <label>Kobieta <input type="radio" value="female" name="sex" th:field="*{sex}"></label></div>
+    <div><label>
+        Imie: <input type="text" name="name" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </label></div>
+
+    <div><label>Mężczyzna <input type="radio" th:value="male"  th:field="*{sex}"></label>
+        <label>Kobieta <input type="radio" th:value="female" th:field="*{sex}"></label></div>
     <div><label for="type">Ulubiony typ:</label>
-        <select id="type" name="type" th:field="*{type}">
+        <select id="type" name="type">
             <option selected value="normalny">Normalny</option>
             <option value="wodny">Wodny</option>
             <option value="ognisty">Ognisty</option>
