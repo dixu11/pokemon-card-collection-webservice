@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new trainerDTO</title>
+</head>
+<body>
+<h1>Powiedz nam jakim jesteś trenerem!</h1>
+<form method="post" action="/trainer">
+    <div><label>Imie: <input type="text" name="name"></label></div>
+    <div><label>Mężczyzna <input type="radio" value="male" name="sex" checked></label>
+        <label>Kobieta <input type="radio" value="female" name="sex"></label></div>
+    <div><label for="type">Ulubiony typ:</label>
+        <select id="type" name="type">
+            <option selected value="normalny">Normalny</option>
+            <option value="wodny">Wodny</option>
+            <option value="ognisty">Ognisty</option>
+            <option value="latajacy">Latający</option>
+            <option value="trawiasty">Trawiasty</option>
+        </select>
+    </div>
+    <input type="submit" value="Stwórz trenera">
+</form>
+<div><a href="/login">Spróbuj ponownie</a></div>
+</body>
+</html>

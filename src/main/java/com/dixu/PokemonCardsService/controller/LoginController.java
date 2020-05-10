@@ -1,8 +1,8 @@
 package com.dixu.PokemonCardsService.controller;
 
+import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.service.LoginService;
 import com.dixu.PokemonCardsService.service.LoginServiceException;
-import com.dixu.PokemonCardsService.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,7 @@ public class LoginController {
     @PostMapping
     String logIn(@RequestParam String mail, @RequestParam String pass, Model model) {
         try {
-            loginService.logIn(new User(mail, pass));
+            loginService.logIn(new UserDTO(mail, pass));
         } catch (LoginServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "login-failed";

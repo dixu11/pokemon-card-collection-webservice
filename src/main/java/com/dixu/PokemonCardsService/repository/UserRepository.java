@@ -1,6 +1,7 @@
 package com.dixu.PokemonCardsService.repository;
 
-import com.dixu.PokemonCardsService.user.User;
+import com.dixu.PokemonCardsService.dto.UserDTO;
+import com.dixu.PokemonCardsService.model.User;
 
 public interface UserRepository {
 

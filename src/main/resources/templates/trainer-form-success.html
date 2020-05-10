@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Successfuly added trainer</title>
+</head>
+<body>
+<h1>Poprawnie dodano trenera! Oto Twoje dane:</h1>
+<div>Nazywasz się: <label th:text="${trainer.getName()}"></label> </div>
+<div>Twoja płeć: <label th:text="${trainer.getSex()}"></label> </div>
+<div>Twój ulubiony typ to: <label th:text="${trainer.getType()}"></label> </div>
+<div><a href="/open-pack">Otwórz paczkę kart</a></div>
+<div><a href="/">Powrót do strony głównej</a></div>
+</body>
+</html>

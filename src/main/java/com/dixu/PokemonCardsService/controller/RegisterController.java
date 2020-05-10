@@ -1,8 +1,8 @@
 package com.dixu.PokemonCardsService.controller;
 
+import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.service.RegisterService;
 import com.dixu.PokemonCardsService.service.UserServiceException;
-import com.dixu.PokemonCardsService.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +32,7 @@ class RegisterController {
     @PostMapping
     String registerNewUser(@RequestParam String mail, @RequestParam String pass, Model model) {
         try {
-            registerService.register(new User(mail, pass));
+            registerService.register(new UserDTO(mail, pass));
         } catch (UserServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "register-failed";
