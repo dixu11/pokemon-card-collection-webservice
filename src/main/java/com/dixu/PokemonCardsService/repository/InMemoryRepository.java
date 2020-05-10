@@ -20,4 +20,9 @@ public class InMemoryRepository implements UserRepository {
         System.out.println("Zapisano usera!");
         System.out.println(users);
     }
+
+    @Override
+    public boolean hasThisUser(User user) {
+        return users.contains(user);
+    }
 }

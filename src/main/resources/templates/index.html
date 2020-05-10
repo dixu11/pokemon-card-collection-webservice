@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Pokemon-Card-Collection</title>
 </head>
 <body>
 <h1>Witaj trenerze! Co chcesz zrobić?</h1>
+<h2>Status logowania: <label th:text="${login_status}"></label> </h2>
 <div><a href="/register">Zarejestruj się</a></div>
 <div><a href="/login">Zaloguj się</a></div>
 <div><a href="/trainer">Stwórz profil trenera</a></div>

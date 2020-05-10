@@ -8,4 +8,8 @@ import lombok.Data;
 public class User {
     private String mail;
     private String password;
+
+    public static User getEmptyUser() {
+        return new User("","");
+    }
 }
