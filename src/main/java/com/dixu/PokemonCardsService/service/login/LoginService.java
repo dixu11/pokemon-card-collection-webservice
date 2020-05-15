@@ -1,10 +1,11 @@
-package com.dixu.PokemonCardsService.service;
+package com.dixu.PokemonCardsService.service.login;
 
 import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.model.User;
 import com.dixu.PokemonCardsService.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Service

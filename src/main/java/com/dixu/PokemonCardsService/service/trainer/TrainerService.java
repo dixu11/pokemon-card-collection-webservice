@@ -1,11 +1,15 @@
-package com.dixu.PokemonCardsService.service;
+package com.dixu.PokemonCardsService.service.trainer;
 
 import com.dixu.PokemonCardsService.dto.TrainerDTO;
+import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.model.Trainer;
 import com.dixu.PokemonCardsService.model.User;
 import com.dixu.PokemonCardsService.repository.TrainerRepository;
+import com.dixu.PokemonCardsService.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 @Service
 public class TrainerService {
@@ -13,17 +17,18 @@ public class TrainerService {
     private LoginService loginService;
     private TrainerRepository trainerRepository;
 
+
     @Autowired
     public TrainerService(LoginService loginService, TrainerRepository trainerRepository) {
         this.loginService = loginService;
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer addTrainer(TrainerDTO trainerDTO) {
+    public Trainer createNewTrainer(TrainerDTO trainerDTO) {
         validateAddingAtAll();
         Trainer trainer = createTrainer(trainerDTO);
         addStartingCoins(trainer);
-        trainerRepository.addTrainerForUser(trainer, loginService.getLoggedUser() );
+        trainerRepository.saveTrainerForUser(trainer, loginService.getLoggedUser() );
         return trainer;
     }
 
@@ -62,5 +67,9 @@ public class TrainerService {
             throw new TrainerServiceException("Najpierw musisz stworzyć trenera");
         }
 
+    }
+
+    public void saveLoggedUserTrainer(Trainer trainer) {
+       trainerRepository.saveTrainerForUser(trainer,loginService.getLoggedUser());
     }
 }

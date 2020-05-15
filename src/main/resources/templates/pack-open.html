@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Packs</title>
+</head>
+<body>
+<h1>Otwieramy paczki!</h1>
+<h2>Twoje monety: <label th:text="${trainer.getCoinsCount()}"></label></h2>
+<div>
+    <form action="/pack" method="post">
+        <input type="submit" value="Standarodwa paczka" th:disabled="${trainer.getCoinsCount()<100}"> 100 monet
+    </form>
+</div>
+<div><a href="/coins">kup monety</a></div>
+<div><a href="/">Powrót do strony głównej</a></div>
+</body>
+</html>

@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface TrainerRepository {
     Optional<Trainer> findTrainerByUser(User user);
 
-    void addTrainerForUser(Trainer trainer, User user);
+    void saveTrainerForUser(Trainer trainer, User user);
 
 }

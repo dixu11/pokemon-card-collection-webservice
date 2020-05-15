@@ -19,13 +19,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(mail, user.mail) &&
-                Objects.equals(password, user.password);
+        return Objects.equals(mail, user.mail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mail, password);
+        return Objects.hash(mail);
     }
 
     public static User getEmptyUser() {

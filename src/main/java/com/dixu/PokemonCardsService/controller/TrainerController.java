@@ -2,9 +2,9 @@ package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.dto.TrainerDTO;
 import com.dixu.PokemonCardsService.model.Trainer;
-import com.dixu.PokemonCardsService.service.LoginServiceException;
-import com.dixu.PokemonCardsService.service.TrainerService;
-import com.dixu.PokemonCardsService.service.TrainerServiceException;
+import com.dixu.PokemonCardsService.service.login.LoginServiceException;
+import com.dixu.PokemonCardsService.service.trainer.TrainerService;
+import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +44,7 @@ public class TrainerController {
         }
         Trainer acceptedTrainer;
         try {
-           acceptedTrainer= trainerService.addTrainer(trainer);
+           acceptedTrainer= trainerService.createNewTrainer(trainer);
         } catch (TrainerServiceException | LoginServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "trainer-form-error";

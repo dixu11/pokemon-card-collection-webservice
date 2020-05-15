@@ -1,14 +1,16 @@
 package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.dto.CoinsDTO;
-import com.dixu.PokemonCardsService.service.*;
+import com.dixu.PokemonCardsService.service.coins.CoinsService;
+import com.dixu.PokemonCardsService.service.login.LoginServiceException;
+import com.dixu.PokemonCardsService.service.trainer.TrainerService;
+import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 

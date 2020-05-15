@@ -1,10 +1,9 @@
-package com.dixu.PokemonCardsService.service;
+package com.dixu.PokemonCardsService.service.coins;
 
 import com.dixu.PokemonCardsService.dto.CoinsDTO;
 import com.dixu.PokemonCardsService.model.Trainer;
+import com.dixu.PokemonCardsService.service.trainer.TrainerService;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
 
 @Service
 public class CoinsService {

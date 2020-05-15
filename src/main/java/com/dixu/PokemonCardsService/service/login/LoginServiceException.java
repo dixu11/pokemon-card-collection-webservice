@@ -1,4 +1,4 @@
-package com.dixu.PokemonCardsService.service;
+package com.dixu.PokemonCardsService.service.login;
 
 public class LoginServiceException extends RuntimeException {
 
