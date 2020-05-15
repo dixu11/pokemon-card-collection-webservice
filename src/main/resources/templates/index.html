@@ -6,15 +6,15 @@
 </head>
 <body>
 <h1>Witaj trenerze! Co chcesz zrobić?</h1>
-<h2>Status logowania: <label th:text="${login_status}"></label> </h2>
-<div><a href="/register">Zarejestruj się</a></div>
-<div><a href="/login">Zaloguj się</a></div>
-<div><a href="/trainer">Stwórz profil trenera</a></div>
-<div><a href="/open-pack">Otwórz paczkę kart</a></div>
-<div><a href="/gallery">Przeglądaj karty</a></div>
-<div><a href="/stats">Statystyki kolekcji</a></div>
-<div><a href="/best-cards">Twoje najlepsze karty</a></div>
+<h2>Status logowania: <label th:text="${login_mail}"></label></h2>
+<div th:if="${!logged}"><a href="/register">Zarejestruj się</a></div>
+<div th:if="${!logged}"><a href="/login">Zaloguj się</a></div>
+<div th:if="${logged}"><a href="/trainer">Stwórz profil trenera</a></div>
+<div th:if="${logged}"><a href="/open-pack">Otwórz paczkę kart</a></div>
+<div th:if="${logged}"><a href="/gallery">Przeglądaj karty</a></div>
+<div th:if="${logged}"><a href="/stats">Statystyki kolekcji</a></div>
+<div th:if="${logged}"><a href="/best-cards">Twoje najlepsze karty</a></div>
 <div><a href="/ranking">Sprawdź ranking trenerów</a></div>
-<div><a href="/logout">Wyloguj się</a></div>
+<div th:if="${logged}"><a href="/logout">Wyloguj się</a></div>
 </body>
 </html>
