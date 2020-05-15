@@ -1,7 +1,8 @@
 package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.dto.TrainerDTO;
-import com.dixu.PokemonCardsService.dto.TrainerResult;
+import com.dixu.PokemonCardsService.model.Trainer;
+import com.dixu.PokemonCardsService.service.LoginServiceException;
 import com.dixu.PokemonCardsService.service.TrainerService;
 import com.dixu.PokemonCardsService.service.TrainerServiceException;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import static com.dixu.PokemonCardsService.model.Trainer.Sex.MALE;
 
 @Controller
 @RequestMapping("/trainer")
@@ -27,7 +26,7 @@ public class TrainerController {
     String getNewTrainerForm(Model model) {
         try {
             trainerService.validateAddingAtAll();
-        } catch (TrainerServiceException e) {
+        } catch (TrainerServiceException| LoginServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "trainer-form-error";
         }
@@ -43,13 +42,14 @@ public class TrainerController {
         if (errors.hasErrors()) {
             return "trainer-form";
         }
+        Trainer acceptedTrainer;
         try {
-            trainerService.addTrainer(trainer);
-        } catch (TrainerServiceException e) {
+           acceptedTrainer= trainerService.addTrainer(trainer);
+        } catch (TrainerServiceException | LoginServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "trainer-form-error";
         }
-        model.addAttribute("trainer", new TrainerResult(trainer.getName(), trainer.getSex(), trainer.getType()));
+        model.addAttribute("trainer", acceptedTrainer);
         return "trainer-form-success";
     }
 }

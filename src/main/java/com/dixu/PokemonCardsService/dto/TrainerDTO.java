@@ -13,5 +13,6 @@ public class TrainerDTO {
     private String name;
     private String sex;
     private String type;
+    private int coins;
 
 }

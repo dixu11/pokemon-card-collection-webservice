@@ -35,7 +35,7 @@ public class LoginService {
 
     public String getLoginStatus() {
         if (loggedIn) {
-            return "Zalogowany jako: " + loggedUser.getMail();
+            return loggedUser.getMail();
         }
         return "Niezalogowany!";
     }
@@ -53,4 +53,9 @@ public class LoginService {
         return loggedUser;
     }
 
+    public void validateUserLogged() {
+        if (!loggedIn) {
+            throw new LoginServiceException("Użytkownik nie zalogowany nie posiada dostępu do podstrony");
+        }
+    }
 }

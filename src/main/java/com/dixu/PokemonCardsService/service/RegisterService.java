@@ -20,11 +20,11 @@ public class RegisterService {
 
     public void register(UserDTO userDTO) {
         User user = new User(userDTO.getMail(),userDTO.getPassword());
-        checkIfAlreadyRegistered(user);
+        validateIfAlreadyRegistered(user);
         repository.saveUser(new User(userDTO.getMail(),userDTO.getPassword()));
     }
 
-    private void checkIfAlreadyRegistered(User user) {
+    private void validateIfAlreadyRegistered(User user) {
         Optional<User> sameUser = repository.findByMail(user.getMail());
         if (sameUser.isPresent()) {
             throw new RegisterServiceException("Wybrałeś maila, którego mamy już w bazie! Spróbuj się zalogować.");

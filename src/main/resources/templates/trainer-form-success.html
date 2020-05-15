@@ -9,7 +9,9 @@
 <div>Nazywasz się: <label th:text="${trainer.getName()}"></label> </div>
 <div>Twoja płeć: <label th:text="${trainer.getSex()}"></label> </div>
 <div>Twój ulubiony typ to: <label th:text="${trainer.getType()}"></label> </div>
-<div><a href="/open-pack">Otwórz paczkę kart</a></div>
+<div>Twoje monety na start: <label th:text="${trainer.getCoinsCount()}"> </label></div>
+<div><a href="/coins"> Kup monety</a> </div>
+<div><a href="/pack">Otwórz paczkę kart</a></div>
 <div><a href="/">Powrót do strony głównej</a></div>
 </body>
 </html>

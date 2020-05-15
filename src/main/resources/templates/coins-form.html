@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy coins</title>
+</head>
+<body>
+<form action="/coins" method="post" th:object="${coins}">
+    Ile monet: <input type="number" th:field="*{count}">
+    <span th:if="${#fields.hasErrors('count')}" th:errors="*{count}"></span>
+    <br>
+    <input type="submit">
+</form>
+</body>
+</html>

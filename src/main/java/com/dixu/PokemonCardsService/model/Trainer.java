@@ -6,19 +6,41 @@ import java.util.Objects;
 
 
 public class Trainer {
-    public enum Sex{
-        FEMALE, MALE
-    }
 
+
+    public enum Sex{
+        FEMALE, MALE;
+
+    }
     private String name;
     private Sex sex;
 
     private String type;
-
+    private int coinsCount;
     public Trainer(String name, Sex sex, String type) {
         this.name = name;
         this.sex = sex;
         this.type = type;
+    }
+
+    public void addCoins(int count) {
+        coinsCount += count;
+    }
+
+    public int getCoinsCount() {
+        return coinsCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override

@@ -31,7 +31,7 @@ class RegisterController {
 
     //adnotacja dodaje otrzymanego usera od razu do modelu
     @PostMapping
-    String registerNewUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult errors, Model model) {
+    String registerNewUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult errors) {
         if (errors.hasErrors()) {
             return "register-form";
         }
