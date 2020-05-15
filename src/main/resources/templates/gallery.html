@@ -7,8 +7,9 @@
 <body>
 Oto wszystkie Twoje karty:
 <br><br>
-<tr th:each="card:${cards}">
-    <td th:text="${card.name}"></td><br>
+<tr th:each="card,iter : ${cards}">
+    <td><img th:src="${card.imageUrl}">
+        <span th:if="${iter.index}%2"></span></td>
 </tr>
 <br>
 <div><a href="/">Powrót do strony głównej</a></div>

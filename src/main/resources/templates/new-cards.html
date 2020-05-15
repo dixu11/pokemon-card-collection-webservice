@@ -8,9 +8,9 @@
 <h1>Paczka otwarta!</h1>
 Oto Twoje nowe karty:<br><br>
 <tr th:each="card: ${cards}">
-    <td th:text="${card.name}"></td><br>
+    <td> <img th:src="${card.imageUrl}"></td>
 </tr>
-<br>
+<br><br><br>
 Karty zostały przpisane do Twojego konta <br>
 <div><a href="/pack">Otwórz kolejną paczkę</a></div>
 <div><a href="/gallery">Oglądaj karty</a></div>

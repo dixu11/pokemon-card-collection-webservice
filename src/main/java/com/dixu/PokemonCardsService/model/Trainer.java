@@ -21,7 +21,7 @@ public class Trainer {
     private Sex sex;
     private String type;
     private List<Card> cards = new ArrayList<>();
-    private int coinsCount;
+    private int coinsCount=99999;
     public Trainer(String name, Sex sex, String type) {
         this.name = name;
         this.sex = sex;
