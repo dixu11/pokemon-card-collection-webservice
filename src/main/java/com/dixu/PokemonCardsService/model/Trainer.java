@@ -15,22 +15,22 @@ public class Trainer {
 
 
 
+
     }
     private String name;
     private Sex sex;
     private String type;
     private List<Card> cards = new ArrayList<>();
     private int coinsCount;
-
     public Trainer(String name, Sex sex, String type) {
         this.name = name;
         this.sex = sex;
         this.type = type;
     }
+
     public void addCoins(int count) {
         coinsCount += count;
     }
-
     public void takeCoins(int count) {
         coinsCount -= count;
     }
@@ -49,6 +49,10 @@ public class Trainer {
 
     public String getType() {
         return type;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public void addCards(List<Card> cards) {

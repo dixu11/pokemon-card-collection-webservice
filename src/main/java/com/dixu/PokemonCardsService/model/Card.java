@@ -1,6 +1,6 @@
 package com.dixu.PokemonCardsService.model;
 
-public class Card {
+public class Card implements Comparable<Card> {
 
     private String name;
 
@@ -10,5 +10,10 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return name.compareTo(o.name);
     }
 }

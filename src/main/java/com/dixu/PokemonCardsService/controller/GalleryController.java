@@ -1,0 +1,26 @@
+package com.dixu.PokemonCardsService.controller;
+
+import com.dixu.PokemonCardsService.model.Card;
+import com.dixu.PokemonCardsService.service.gallery.GalleryService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+
+@Controller
+public class GalleryController {
+
+    private GalleryService galleryService;
+
+    public GalleryController(GalleryService galleryService) {
+        this.galleryService = galleryService;
+    }
+
+    @GetMapping("/gallery")
+    public String getGalleryPage(Model model) {
+        List<Card> cards = galleryService.getCards();
+        model.addAttribute("cards", cards);
+        return "gallery";
+    }
+}
