@@ -7,14 +7,14 @@
 <body>
 <h1>Witaj trenerze! Co chcesz zrobić?</h1>
 <h2>Status logowania: <label th:text="${login_status}"></label> </h2>
-<div><a  href="/register">Zarejestruj się</a></div>
-<div><a href="/login">Zaloguj się</a></div>
-<div><a href="/trainer">Stwórz profil trenera</a></div>
-<div><a href="/open-pack">Otwórz paczkę kart</a></div>
-<div><a href="/gallery">Przeglądaj karty</a></div>
-<div><a href="/stats">Statystyki kolekcji</a></div>
-<div><a href="/best-cards">Twoje najlepsze karty</a></div>
-<div><a href="/ranking">Sprawdź ranking trenerów</a></div>
-<div><a href="/logout">Wyloguj się</a></div>
+<a th:if="${!logged}" href="/register"> Zarejestruj się</a> <br>
+<a th:if="${!logged}" href="/login"> Zaloguj się</a> <br>
+<a th:if="${logged}" href="/trainer"> Stwórz trenera</a> <br>
+<a th:if="${logged}" href="/pack"> Otwórz paczkę</a> <br>
+<a th:if="${logged}" href="/cards"> Twoje karty</a> <br>
+<a th:if="${logged}" href="/market"> Sklep</a> <br>
+<a th:if="${logged}" href="/coins"> Kup monety</a> <br>
+<a th:if="${logged}" href="/statistics"> Profil</a> <br>
+<a th:if="${logged}" href="/logout"> Wyloguj się</a>
 </body>
 </html>
