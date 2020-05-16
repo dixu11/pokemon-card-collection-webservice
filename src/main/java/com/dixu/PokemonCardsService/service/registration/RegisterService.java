@@ -20,7 +20,9 @@ public class RegisterService {
     @PostConstruct
     private void addStartingData() {
         if (testMode) {
-            register(new UserDTO("d@d.pl","12345"));
+            if (repository.findByMail("d@d.pl").isEmpty()) {
+                register(new UserDTO("d@d.pl","12345"));
+            }
         }
     }
 
@@ -32,7 +34,7 @@ public class RegisterService {
     public void register(UserDTO userDTO) {
         User user = new User(userDTO.getMail(),userDTO.getPassword());
         validateIfAlreadyRegistered(user);
-        repository.saveUser(new User(userDTO.getMail(),userDTO.getPassword()));
+        repository.save(new User(userDTO.getMail(),userDTO.getPassword()));
     }
 
     private void validateIfAlreadyRegistered(User user) {

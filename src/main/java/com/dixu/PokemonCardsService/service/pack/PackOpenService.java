@@ -2,6 +2,7 @@ package com.dixu.PokemonCardsService.service.pack;
 
 import com.dixu.PokemonCardsService.model.Card;
 import com.dixu.PokemonCardsService.model.Trainer;
+import com.dixu.PokemonCardsService.repository.TrainerRepository;
 import com.dixu.PokemonCardsService.service.trainer.TrainerService;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ public class PackOpenService {
 
     private TrainerService trainerService;
     private CardsGenerator cardsGenerator;
+    private TrainerRepository trainerRepository;
 
-    public PackOpenService(TrainerService trainerService, CardsGenerator cardsGenerator) {
+    public PackOpenService(TrainerService trainerService, CardsGenerator cardsGenerator, TrainerRepository trainerRepository) {
         this.trainerService = trainerService;
         this.cardsGenerator = cardsGenerator;
+        this.trainerRepository = trainerRepository;
     }
 
     public List<Card> openStandardPack() {
@@ -25,7 +28,7 @@ public class PackOpenService {
         trainer.takeCoins(STANDARD_PACK_COST);
         List<Card> cards = cardsGenerator.generateStandardPackCards();
         trainer.addCards(cards);
-        trainerService.saveLoggedUserTrainer(trainer);
+        trainerRepository.save(trainer);
         return cards;
     }
 }

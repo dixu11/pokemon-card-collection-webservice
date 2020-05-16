@@ -15,4 +15,5 @@ public class TrainerDTO {
     private String type;
     private int coins;
 
+    //https://4programmers.net/Forum/Java/307762-dto_czy_dobrze_rozumiem
 }

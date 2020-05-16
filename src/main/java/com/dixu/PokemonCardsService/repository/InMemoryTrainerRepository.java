@@ -1,46 +1,40 @@
 package com.dixu.PokemonCardsService.repository;
 
-import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.model.Trainer;
-import com.dixu.PokemonCardsService.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class InMemoryTrainerRepository implements TrainerRepository {
-    private Map<User, Trainer> trainers;
+    private Set<Trainer> trainers;
     @Value("${testmode}")
     private boolean test;
 
     public InMemoryTrainerRepository() {
-        trainers = new HashMap<>();
+        trainers = new HashSet<>();
     }
 
     @PostConstruct
     private void addStartingData() {
         if (test) {
-            saveTrainerForUser(new Trainer("Dixu", Trainer.Sex.FEMALE,"fire"),new User("d@d.pl","12345"));
+            save(new Trainer("d@d.pl", "Dixu", Trainer.Sex.FEMALE, "fire"));
         }
     }
 
     @Override
-    public Optional<Trainer> findTrainerByUser(User user) {
-        if (trainers.containsKey(user)) {
-            return Optional.of(trainers.get(user));
-        }
-        return Optional.empty();
+    public Optional<Trainer> findTrainerByMail(String mail) {
+        return trainers.stream()
+                .filter(trainer -> trainer.getMail().equals(mail))
+                .findAny();
     }
-
 
     @Override
-    public void saveTrainerForUser(Trainer trainer, User user) {
-        trainers.put(user, trainer);
+    public Trainer save(Trainer trainer) {
+        trainers.add(trainer);
+        return trainer;
     }
-
 
 }

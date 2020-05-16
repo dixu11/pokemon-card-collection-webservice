@@ -5,8 +5,9 @@
     <title>Gallery</title>
 </head>
 <body>
-Oto wszystkie Twoje karty:
-<br><br>
+Oto wszystkie Twoje karty:<br><br>
+<div><a href="/">Powrót do strony głównej</a></div>
+<br>
 <tr th:each="card,iter : ${cards}">
     <td><img th:src="${card.imageUrl}">
         <span th:if="${iter.index}%2"></span></td>

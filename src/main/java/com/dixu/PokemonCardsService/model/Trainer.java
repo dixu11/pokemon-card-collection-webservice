@@ -1,28 +1,35 @@
 package com.dixu.PokemonCardsService.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+@Entity
+@Data
+@NoArgsConstructor
 public class Trainer {
 
-
-    public enum Sex{
+    public enum Sex {
         FEMALE, MALE;
-
-
-
-
     }
+
+    @Id
+    private String mail;
     private String name;
     private Sex sex;
     private String type;
+    @ManyToMany
     private List<Card> cards = new ArrayList<>();
-    private int coinsCount=99999;
-    public Trainer(String name, Sex sex, String type) {
+    private int coinsCount = 99999;
+
+    public Trainer(String mail,String name, Sex sex, String type) {
+        this.mail = mail;
         this.name = name;
         this.sex = sex;
         this.type = type;
@@ -31,28 +38,9 @@ public class Trainer {
     public void addCoins(int count) {
         coinsCount += count;
     }
+
     public void takeCoins(int count) {
         coinsCount -= count;
-    }
-
-    public int getCoinsCount() {
-        return coinsCount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public List<Card> getCards() {
-        return cards;
     }
 
     public void addCards(List<Card> cards) {
@@ -64,13 +52,11 @@ public class Trainer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trainer trainer = (Trainer) o;
-        return Objects.equals(name, trainer.name) &&
-                sex == trainer.sex &&
-                Objects.equals(type, trainer.type);
+        return mail.equals(trainer.mail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sex, type);
+        return Objects.hash(mail);
     }
 }

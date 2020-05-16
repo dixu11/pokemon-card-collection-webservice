@@ -1,15 +1,12 @@
 package com.dixu.PokemonCardsService.service.trainer;
 
 import com.dixu.PokemonCardsService.dto.TrainerDTO;
-import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.model.Trainer;
 import com.dixu.PokemonCardsService.model.User;
 import com.dixu.PokemonCardsService.repository.TrainerRepository;
 import com.dixu.PokemonCardsService.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 @Service
 public class TrainerService {
@@ -28,7 +25,7 @@ public class TrainerService {
         validateAddingAtAll();
         Trainer trainer = createTrainer(trainerDTO);
         addStartingCoins(trainer);
-        trainerRepository.saveTrainerForUser(trainer, loginService.getLoggedUser() );
+        trainerRepository.save(trainer);
         return trainer;
     }
 
@@ -39,13 +36,17 @@ public class TrainerService {
     public void validateAddingAtAll() {
         loginService.validateUserLogged();
         User loggedUser = loginService.getLoggedUser();
-        if (trainerRepository.findTrainerByUser(loggedUser).isPresent()) {
+        String mail = loggedUser.getMail();
+        if (trainerRepository.findTrainerByMail(mail)
+                .isPresent()) {
             throw new TrainerServiceException("Stworzyłeś już trenera :) Bierz się za łapanie!");
         }
     }
 
     private Trainer createTrainer(TrainerDTO trainerDTO) {
-        return new Trainer(trainerDTO.getName(),
+        return new Trainer(
+                loginService.getLoggedUser().getMail(),
+                trainerDTO.getName(),
                 Trainer.Sex.valueOf(trainerDTO.getSex().toUpperCase()),
                 trainerDTO.getType());
     }
@@ -54,7 +55,7 @@ public class TrainerService {
         User loggedUser = loginService.getLoggedUser();
         validateHasTrainer();
         return trainerRepository
-                .findTrainerByUser(loggedUser)
+                .findTrainerByMail(loggedUser.getMail())
                 .orElseThrow();
     }
 
@@ -62,14 +63,10 @@ public class TrainerService {
         loginService.validateUserLogged();
         User loggedUser = loginService.getLoggedUser();
         if (trainerRepository
-                .findTrainerByUser(loggedUser)
+                .findTrainerByMail(loggedUser.getMail())
                 .isEmpty()) {
             throw new TrainerServiceException("Najpierw musisz stworzyć trenera");
         }
 
-    }
-
-    public void saveLoggedUserTrainer(Trainer trainer) {
-       trainerRepository.saveTrainerForUser(trainer,loginService.getLoggedUser());
     }
 }

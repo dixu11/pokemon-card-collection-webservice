@@ -2,6 +2,7 @@ package com.dixu.PokemonCardsService.repository;
 
 import com.dixu.PokemonCardsService.dto.UserDTO;
 import com.dixu.PokemonCardsService.model.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,22 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class InMemoryRepository implements UserRepository {
+public class InMemoryUserRepository implements UserRepository {
     private List<User> users;
 
-    public InMemoryRepository() {
+    public InMemoryUserRepository() {
         users = new ArrayList<>();
     }
 
-    @Override
-    public void saveUser(User user) {
-        users.add(user);
-    }
 
-    @Override
-    public boolean hasThisUser(User user) {
-        return users.contains(user);
-    }
 
     @Override
     public Optional<User> findByMail(String mail) {
@@ -32,4 +25,12 @@ public class InMemoryRepository implements UserRepository {
                 .filter(user -> user.getMail().equals(mail))
                 .findAny();
     }
+
+    @Override
+    public User save(User user) {
+        users.add(user);
+        return user;
+    }
+
+
 }
