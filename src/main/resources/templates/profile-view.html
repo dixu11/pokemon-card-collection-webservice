@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+</head>
+<body>
+<h1>Profil</h1>
+<h2>Twoje dane:</h2>
+Imię: <label th:text="${profile.name}"></label><br/>
+Ulubiony typ: <label th:text="${profile.type}"></label><br/>
+Ilość monet: <label th:text="${profile.coins}"></label><br/>
+<h2>Kolekcja:</h2>
+Ilość kart: <label th:text="${profile.cardsCount}"></label><br/>
+Karty zwykłe: <label th:text="${profile.commonCount}"></label><br/>
+Karty rzadkie: <label th:text="${profile.rareCount}"></label><br/><br/>
+<div><a href="/">Powrót do strony głównej</a></div>
+</body>
+</html>
