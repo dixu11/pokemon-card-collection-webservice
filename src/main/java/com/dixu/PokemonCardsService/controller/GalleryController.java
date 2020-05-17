@@ -2,7 +2,6 @@ package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.model.Card;
 import com.dixu.PokemonCardsService.service.gallery.GalleryService;
-import com.dixu.PokemonCardsService.service.login.LoginServiceException;
 import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,7 @@ public class GalleryController {
         List<Card> cards;
         try {
            cards = galleryService.getCards();
-        }catch (TrainerServiceException | LoginServiceException e){
+        }catch (TrainerServiceException  e){
             model.addAttribute("error", e.getMessage());
             return "no-access";
         }

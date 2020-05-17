@@ -8,5 +8,4 @@ import java.util.Optional;
 public interface TrainerRepository {
     Optional<Trainer> findTrainerByMail(String mail);
     Trainer save(Trainer trainer);
-
 }

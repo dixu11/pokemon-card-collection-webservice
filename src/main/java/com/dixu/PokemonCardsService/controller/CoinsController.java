@@ -2,7 +2,6 @@ package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.dto.CoinsDTO;
 import com.dixu.PokemonCardsService.service.coins.CoinsService;
-import com.dixu.PokemonCardsService.service.login.LoginServiceException;
 import com.dixu.PokemonCardsService.service.trainer.TrainerService;
 import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ public class CoinsController {
         model.addAttribute("coins", new CoinsDTO());
         try {
             trainerService.validateHasTrainer();
-        }catch (TrainerServiceException | LoginServiceException e){
+        }catch (TrainerServiceException e){
             model.addAttribute("error", e.getMessage());
             return "no-access";
         }

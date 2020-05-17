@@ -1,7 +1,6 @@
 package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.dto.ProfileStatsDTO;
-import com.dixu.PokemonCardsService.service.login.LoginServiceException;
 import com.dixu.PokemonCardsService.service.profile.ProfileService;
 import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class ProfileController {
         try {
             ProfileStatsDTO profile = profileService.getProfileData();
             model.addAttribute("profile", profile);
-        } catch (TrainerServiceException | LoginServiceException e) {
+        } catch (TrainerServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "no-access";
         }

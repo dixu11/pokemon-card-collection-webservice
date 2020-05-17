@@ -5,6 +5,7 @@ import com.dixu.PokemonCardsService.model.User;
 import com.dixu.PokemonCardsService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -14,8 +15,15 @@ import java.util.Optional;
 public class RegisterService {
 
     private UserRepository repository;
+    private PasswordEncoder encoder;
     @Value("${testmode}")
     private boolean testMode;
+
+    @Autowired
+    public RegisterService(UserRepository repository, PasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
+    }
 
     @PostConstruct
     private void addStartingData() {
@@ -26,15 +34,11 @@ public class RegisterService {
         }
     }
 
-    @Autowired
-    public RegisterService(UserRepository repository) {
-        this.repository = repository;
-    }
-
     public void register(UserDTO userDTO) {
-        User user = new User(userDTO.getMail(),userDTO.getPassword());
+        String password = encoder.encode(userDTO.getPassword());
+        User user = new User(userDTO.getMail(),password);
         validateIfAlreadyRegistered(user);
-        repository.save(new User(userDTO.getMail(),userDTO.getPassword()));
+        repository.save(user);
     }
 
     private void validateIfAlreadyRegistered(User user) {
@@ -43,5 +47,4 @@ public class RegisterService {
             throw new RegisterServiceException("Wybrałeś maila, którego mamy już w bazie! Spróbuj się zalogować.");
         }
     }
-
 }

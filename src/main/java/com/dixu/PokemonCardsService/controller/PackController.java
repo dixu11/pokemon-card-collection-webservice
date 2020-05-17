@@ -2,9 +2,7 @@ package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.model.Card;
 import com.dixu.PokemonCardsService.model.Trainer;
-import com.dixu.PokemonCardsService.service.login.LoginServiceException;
 import com.dixu.PokemonCardsService.service.pack.PackOpenService;
-import com.dixu.PokemonCardsService.service.pack.PackOpenServiceException;
 import com.dixu.PokemonCardsService.service.trainer.TrainerService;
 import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
@@ -32,7 +30,7 @@ public class PackController {
     public String getPackOpenPage(Model model) {
         try {
             trainerService.validateHasTrainer();
-        } catch (TrainerServiceException | LoginServiceException e) {
+        } catch (TrainerServiceException e) {
             model.addAttribute("error", e.getMessage());
             return "no-access";
         }

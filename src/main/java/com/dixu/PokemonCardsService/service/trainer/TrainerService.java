@@ -34,9 +34,7 @@ public class TrainerService {
     }
 
     public void validateAddingAtAll() {
-        loginService.validateUserLogged();
-        User loggedUser = loginService.getLoggedUser();
-        String mail = loggedUser.getMail();
+        String mail = loginService.getLoggedUserMail();
         if (trainerRepository.findTrainerByMail(mail)
                 .isPresent()) {
             throw new TrainerServiceException("Stworzyłeś już trenera :) Bierz się za łapanie!");
@@ -45,25 +43,22 @@ public class TrainerService {
 
     private Trainer createTrainer(TrainerDTO trainerDTO) {
         return new Trainer(
-                loginService.getLoggedUser().getMail(),
+                loginService.getLoggedUserMail(),
                 trainerDTO.getName(),
                 Trainer.Sex.valueOf(trainerDTO.getSex().toUpperCase()),
                 trainerDTO.getType());
     }
 
     public Trainer getLoggedTrainer() {
-        User loggedUser = loginService.getLoggedUser();
         validateHasTrainer();
         return trainerRepository
-                .findTrainerByMail(loggedUser.getMail())
+                .findTrainerByMail(loginService.getLoggedUserMail())
                 .orElseThrow();
     }
 
     public void validateHasTrainer() {
-        loginService.validateUserLogged();
-        User loggedUser = loginService.getLoggedUser();
         if (trainerRepository
-                .findTrainerByMail(loggedUser.getMail())
+                .findTrainerByMail(loginService.getLoggedUserMail())
                 .isEmpty()) {
             throw new TrainerServiceException("Najpierw musisz stworzyć trenera");
         }

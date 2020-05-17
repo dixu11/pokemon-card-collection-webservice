@@ -1,62 +1,40 @@
 package com.dixu.PokemonCardsService.service.login;
 
-import com.dixu.PokemonCardsService.dto.UserDTO;
-import com.dixu.PokemonCardsService.model.User;
-import com.dixu.PokemonCardsService.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class LoginService {
-    private User loggedUser;
-    private boolean loggedIn;
-    @Qualifier
-    private UserRepository repository;
 
-    public LoginService(UserRepository repository) {
-        this.repository = repository;
-        logOut();
+    public boolean isUserLogged() {
+        return getLoggedUserDetails().isPresent();
     }
 
-    public void logIn(UserDTO userDTO) {
-        User loggingUser = new User(userDTO.getMail(), userDTO.getPassword());
-        Optional<User> accountOptional = repository.findByMail(loggingUser.getMail());
-        if (accountOptional.isEmpty()) {
-            throw new LoginServiceException("Nie odnaleziono użytkownika o takim mailu", "mail");
+    private Authentication getAuthentication() {
+        return SecurityContextHolder.getContext()
+                .getAuthentication();
+    }
+
+    public String getLoggedUserMail() {
+        Optional<UserDetails> userOptional = getLoggedUserDetails();
+        if (userOptional.isEmpty()) {
+            throw new NoSuchElementException("User not found!");
         }
-        if (!accountOptional.get().hasSamePassword(loggingUser)) {
-            throw new LoginServiceException("Nieprawidłowe hasło", "password");
+        return userOptional.get()
+                .getUsername();
+    }
+
+    private Optional<UserDetails> getLoggedUserDetails() {
+        Authentication authentication = getAuthentication();
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            return Optional.of((UserDetails) authentication.getPrincipal());
         }
-        loggedIn = true;
-        loggedUser = loggingUser;
-    }
-
-
-    public String getLoginStatus() {
-        if (loggedIn) {
-            return loggedUser.getMail();
-        }
-        return "Niezalogowany!";
-    }
-
-    public void logOut() {
-        loggedUser = User.getEmptyUser();
-        loggedIn = false;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public User getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void validateUserLogged() {
-        if (!loggedIn) {
-            throw new LoginServiceException("Użytkownik nie zalogowany nie posiada dostępu do podstrony");
-        }
+        return Optional.empty();
     }
 }

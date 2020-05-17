@@ -2,7 +2,6 @@ package com.dixu.PokemonCardsService.controller;
 
 import com.dixu.PokemonCardsService.model.Card;
 import com.dixu.PokemonCardsService.service.auctions.AuctionsService;
-import com.dixu.PokemonCardsService.service.login.LoginServiceException;
 import com.dixu.PokemonCardsService.service.trainer.TrainerServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,7 @@ public class AuctionsController {
         List<Card> cards;
         try {
             cards = auctionsService.getCards();
-        }catch (TrainerServiceException | LoginServiceException e){
+        }catch (TrainerServiceException e){
             model.addAttribute("error", e.getMessage());
             return "no-access";
         }

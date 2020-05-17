@@ -6,14 +6,12 @@
 </head>
 <body>
 <h1>Zaloguj się i złap je wszystkie!</h1>
-<form method="post" th:object="${user}">
+<form method="post" action="login">
     <div><label>
-        Mail: <input type="email" name="mail" th:field="${user.mail}">
-        <span  th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+        Mail: <input type="email" name="username">
     </label></div>
     <div><label>
-        Password: <input type="password" name="pass" th:field="${user.password}">
-        <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        Password: <input type="password" name="password">
     </label></div>
     <div> <input type="submit" value="Zaloguj"></div>
 </form>
