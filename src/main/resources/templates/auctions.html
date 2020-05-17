@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Aukcje</title>
+</head>
+<body>
+Kliknij kartę aby wystawić ją na sprzedarz
+<br>
+<tr th:each="card,iter : ${cards}">
+    <td> <a th:href="'sell/'+${card.id}"> <img th:src="${card.imageUrl}"></a>
+        <span th:if="${iter.index}%2"></span></td>
+</tr>
+<br>
+<div><a href="/">Powrót do strony głównej</a></div>
+</body>
+</html>
