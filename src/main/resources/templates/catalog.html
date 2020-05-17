@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog</title>
+</head>
+<body>
+Oto wszystkie karty dostępne w serwisie:<br>
+<label th:text="'Ilość kart w bazie: ' + ${cards.size()}"></label>
+<br><br>
+<div><a href="/">Powrót do strony głównej</a></div>
+<br>
+<tr th:each="card : ${cards}">
+    <td><img th:src="${card.imageUrl}"> </td>
+</tr>
+<br>
+<div><a href="/">Powrót do strony głównej</a></div>
+</body>
+</html>
