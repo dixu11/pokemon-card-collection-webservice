@@ -99,7 +99,6 @@ public class CardsClient {
             }catch (Exception e){
                 System.out.println("Unknown error for set: "+ set.getCode());
             }
-
         }).start();
     }
 

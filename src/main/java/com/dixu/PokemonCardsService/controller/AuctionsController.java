@@ -24,7 +24,7 @@ public class AuctionsController {
     public String getMarket(Model model) {
         List<Card> cards;
         try {
-            cards = auctionsService.getCards();
+            cards = auctionsService.getLoggedUserCards();
         }catch (TrainerServiceException e){
             model.addAttribute("error", e.getMessage());
             return "no-access";

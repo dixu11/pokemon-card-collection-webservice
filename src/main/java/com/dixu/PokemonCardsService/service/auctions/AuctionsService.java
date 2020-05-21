@@ -17,7 +17,7 @@ public class AuctionsService {
         this.trainerService = trainerService;
     }
 
-    public List<Card> getCards() { // todo only rare!
+    public List<Card> getLoggedUserCards() { // todo only rare!
         Trainer loggedTrainer = trainerService.getLoggedTrainer();
         List<Card> cards = loggedTrainer.getCards();
         Collections.sort(cards);
