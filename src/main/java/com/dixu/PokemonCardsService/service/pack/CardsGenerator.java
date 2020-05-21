@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -31,17 +32,28 @@ public class CardsGenerator {
         if (allCards.isEmpty()) {
             fillInMemoryCardsCollection();
         }
-        List<Card> packCards = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            packCards.add(pickCommonCard());
-        }
+        List<Card> packCards = pick5Cards();
+        Collections.shuffle(packCards);
         return packCards;
     }
 
-    private void validateHasCards() {
-        if (allCards.isEmpty()) {
+    private List<Card> pick5Cards() {
+        List<Card> packCards = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            packCards.add(pickCommonCard());
+        }
+        packCards.add(pickUncommonCard());
+        return packCards;
+    }
+
+    private Card pickUncommonCard() {
+        List<Card> uncommon = allCards.stream()
+                .filter(card -> card.getRarity()!=null && !card.getRarity().equalsIgnoreCase("common"))
+                .collect(Collectors.toList());
+        if (uncommon.isEmpty()) {
             throw new PackOpenServiceException(NO_CARDS_ERROR_MESSAGE);
         }
+        return uncommon.get(random.nextInt(uncommon.size()));
     }
 
     private Card pickCommonCard() {
